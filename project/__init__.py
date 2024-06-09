@@ -1,5 +1,4 @@
 import asyncio
-import subprocess
 from fastapi import FastAPI
 from scrapy.crawler import CrawlerProcess
 
@@ -33,15 +32,20 @@ def create_app() -> FastAPI:
         process = CrawlerProcess(
             settings={
                 "FEEDS": {
-                    "winedata.json": {"format": "json"}
+                    "winedata.json": {"format": "json", "overwrite": True}
                 },
                 "ITEM_PIPELINES": {
                     "winescraper.pipelines.WinescraperPipeline": 300,
+                    "winescraper.pipelines.WinescraperDataBasePipeline": 400,
                 },
                 "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
                 "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
                 "FEED_EXPORT_ENCODING": "utf-8",
                 "ROBOTSTXT_OBEY": False,
+                "AUTOTHROTTLE_ENABLED": True,
+                "AUTOTHROTTLE_START_DELAY": 5,
+                "AUTOTHROTTLE_MAX_DELAY": 60,
+                "AUTOTHROTTLE_TARGET_CONCURRENCY": 1.0
 
             }
         )

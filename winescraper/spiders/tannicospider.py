@@ -67,9 +67,9 @@ class TannicoSpider(Spider):
         wine_item["wine_type"] = response.xpath(
             '//ul[@id="product-attribute-specs-table"]//strong[text()="Tipologia: "]/following-sibling::text()').get()
 
-        # vivino_data = make_vivino_request(wine_item["name"])
+        vivino_data = make_vivino_request(wine_item["name"])
 
-        # wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
-        # wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
-        # wine_item["vivino_url"] = vivino_data.get('vivino_url')
+        wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
+        wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
+        wine_item["vivino_url"] = vivino_data.get('vivino_url')
         yield wine_item

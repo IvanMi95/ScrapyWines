@@ -8,6 +8,7 @@ import scrapy
 
 class WineItem(scrapy.Item):
     name = scrapy.Field()
+    website = scrapy.Field()
     url = scrapy.Field()
     sale_price = scrapy.Field()
     original_price = scrapy.Field()
@@ -22,4 +23,4 @@ class WineItem(scrapy.Item):
     wine_type = scrapy.Field()
     vivino_rating = scrapy.Field()
     vivino_reviews = scrapy.Field()
-    vivino_link = scrapy.Field()
+    vivino_url = scrapy.Field()

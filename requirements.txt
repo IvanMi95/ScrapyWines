@@ -1,5 +1,0 @@
-celery==5.3.6
-fastapi==0.108.0
-redis==5.0.1
-scrapy==2.11.2
-uvicorn[standard]==0.25.0

@@ -1,7 +1,7 @@
 from typing import List
 from scrapy import Request, Spider
 from scrapy.http import Response
-from scrapy.selector import Selector
+from scrapy.selector.unified import Selector, SelectorList
 
 from winescraper.items import WineItem
 from winescraper.util.util import custom_print
@@ -19,17 +19,22 @@ from winescraper.util.vivino_util import construct_vivino_query, make_vivino_req
 class TannicoSpider(Spider):
     name = "tannicospider"
     allowed_domains = ["www.tannico.it", "www.vivino.com"]
-    start_urls = ["https://www.tannico.it/vini/vini-bianchi-in-offerta.html"]
-    # start_urls = ["https://www.tannico.it/vini/vini-rossi-in-offerta.html"]
+    # start_urls = ["https://www.tannico.it/vini/vini-bianchi-in-offerta.html"]
+    start_urls = ["https://www.tannico.it/vini/vini-rossi-in-offerta.html"]
 
     def parse(self, response: Response):
-        wines: List[Selector] = response.css('article.productItem.productItem--standard')
+        wines: SelectorList = response.css('article.productItem.productItem--standard')
 
-        custom_print(type(wines))
         for wine in wines:
-            custom_print(type(wine))
             wine_page_url = wine.css("div.productItem__info a::attr(href)").get()
-            yield response.follow(wine_page_url, callback=self.parse_wine, meta={'wine_page_url': wine_page_url})
+            yield response.follow(
+                url=wine_page_url,
+                callback=self.parse_wine,
+                meta={
+                    "wine_page_url": wine_page_url,
+                    "website": "www.tannico.it"
+                }
+            )
 
     def parse_wine(self, response: Response):
         wine_item = WineItem()
@@ -39,6 +44,7 @@ class TannicoSpider(Spider):
 
         wine_item["name"] = response.css('div.productPage__content h1 ::text').get()
         wine_item["url"] = response.meta['wine_page_url']
+        wine_item["website"] = response.meta['website']
         wine_item["sale_price"] = response.css('span.new-price::text').get()
         wine_item["original_price"] = old_prices[0].get() if len(old_prices) > 0 else None
         wine_item["lowest_price"] = old_prices[1].get() if len(old_prices) > 1 else None
@@ -67,5 +73,5 @@ class TannicoSpider(Spider):
 
         # wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
         # wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
-        # wine_item["vivino_link"] = vivino_data.get('vivino_link')
+        # wine_item["vivino_url"] = vivino_data.get('vivino_url')
         yield wine_item

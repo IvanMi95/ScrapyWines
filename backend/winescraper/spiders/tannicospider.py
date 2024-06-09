@@ -1,4 +1,7 @@
+from typing import List
 from scrapy import Request, Spider
+from scrapy.http import Response
+from scrapy.selector import Selector
 
 from winescraper.items import WineItem
 from winescraper.util.util import custom_print
@@ -19,14 +22,16 @@ class TannicoSpider(Spider):
     start_urls = ["https://www.tannico.it/vini/vini-bianchi-in-offerta.html"]
     # start_urls = ["https://www.tannico.it/vini/vini-rossi-in-offerta.html"]
 
-    def parse(self, response):
-        wines = response.css('article.productItem.productItem--standard')
+    def parse(self, response: Response):
+        wines: List[Selector] = response.css('article.productItem.productItem--standard')
 
+        custom_print(type(wines))
         for wine in wines:
+            custom_print(type(wine))
             wine_page_url = wine.css("div.productItem__info a::attr(href)").get()
             yield response.follow(wine_page_url, callback=self.parse_wine, meta={'wine_page_url': wine_page_url})
 
-    def parse_wine(self, response):
+    def parse_wine(self, response: Response):
         wine_item = WineItem()
 
         old_prices = response.css('span.price::text')
@@ -58,9 +63,9 @@ class TannicoSpider(Spider):
         wine_item["wine_type"] = response.xpath(
             '//ul[@id="product-attribute-specs-table"]//strong[text()="Tipologia: "]/following-sibling::text()').get()
 
-        vivino_data = make_vivino_request(wine_item["name"])
+        # vivino_data = make_vivino_request(wine_item["name"])
 
-        wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
-        wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
-        wine_item["vivino_link"] = vivino_data.get('vivino_link')
+        # wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
+        # wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
+        # wine_item["vivino_link"] = vivino_data.get('vivino_link')
         yield wine_item

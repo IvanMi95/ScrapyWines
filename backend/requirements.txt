@@ -1,0 +1,8 @@
+alembic==1.13.1
+celery==5.3.6
+fastapi==0.108.0
+flower==2.0.1
+redis==5.0.1
+scrapy==2.11.2
+SQLAlchemy==2.0.25
+uvicorn[standard]==0.25.0

@@ -1,7 +1,5 @@
 from typing import Any, Optional
 
-from winescraper.util.util import custom_print
-
 
 def convert_price_to_float_tannico(price_string: str) -> Optional[float]:
     if not isinstance(price_string, str):

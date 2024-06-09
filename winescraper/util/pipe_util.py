@@ -16,7 +16,8 @@ def remove_quotes(string: str) -> str:
         '‹': '',
         '›': '',
         '«': '',
-        '»': ''
+        '»': '',
+        "\n": ""
     })
     return string.translate(translation_table)
 
@@ -32,6 +33,7 @@ def clean_string(value: Any) -> Optional[str]:
         return value
     value = remove_quotes(string=value)
     value = remove_encoded_characters(string=value)
+
     return value
 
 

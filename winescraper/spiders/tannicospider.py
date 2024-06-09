@@ -4,7 +4,6 @@ from scrapy.http import Response
 from scrapy.selector.unified import Selector, SelectorList
 
 from winescraper.items import WineItem
-from winescraper.util.util import custom_print
 from winescraper.util.vivino_util import construct_vivino_query, make_vivino_request
 # scrapy crawl tannicospider
 # xpath other method
@@ -48,8 +47,7 @@ class TannicoSpider(Spider):
         wine_item["sale_price"] = response.css('span.new-price::text').get()
         wine_item["original_price"] = old_prices[0].get() if len(old_prices) > 0 else None
         wine_item["lowest_price"] = old_prices[1].get() if len(old_prices) > 1 else None
-        # wine_item["discount_percentage"] = response.css(
-        #     'span.perliter-price.omnibus-discount-label::text').get()
+        # wine_item["discount_percentage"] = None
         wine_item["awards"] = [
             {
                 "critic": award.css("strong ::text").get(),

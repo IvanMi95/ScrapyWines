@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "winescraper.spiders"
 # USER_AGENT = "winescraper (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-# ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
@@ -67,7 +67,6 @@ NEWSPIDER_MODULE = "winescraper.spiders"
 ITEM_PIPELINES = {
     "winescraper.pipelines.WinescraperPipeline": 300,
 }
-
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 # AUTOTHROTTLE_ENABLED = True

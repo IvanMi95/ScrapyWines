@@ -10,7 +10,7 @@ from itemadapter import ItemAdapter
 
 from project.database import get_session
 from project.wines.models import Award, Wine
-from util.print_util import print_exception
+from util.print_util import custom_print, print_exception
 from winescraper.util.pipe_util import clean_string, get_wine_type
 from winescraper.util.tannico_util import convert_alcohol_percentage_to_float, convert_discount_percentage_tannico, convert_price_to_float_tannico, parse_availability
 PRICES = ["sale_price", "original_price", "lowest_price"]
@@ -117,3 +117,4 @@ class WinescraperDataBasePipeline:
             except Exception as exc:
                 session.rollback()
                 print_exception(exception=exc)
+        return item

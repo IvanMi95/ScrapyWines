@@ -36,7 +36,7 @@ def create_app() -> FastAPI:
                 },
                 "ITEM_PIPELINES": {
                     "winescraper.pipelines.WinescraperPipeline": 300,
-                    "winescraper.pipelines.WinescraperDataBasePipeline": 400,
+                    "winescraper.pipelines.WinescraperDataBasePipeline": 400
                 },
                 "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
                 "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",

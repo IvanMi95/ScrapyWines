@@ -45,9 +45,11 @@ def make_vivino_request(wine_name: Any) -> Any:
         "//div[contains(@class, 'average__stars')]//p[@class='text-micro']/text()").get()
     vivino_url = sel.xpath(
         "//div[@class='search-results-list']/div[@class='card card-lg']//a/@href").get()
+    vivino_rating = clean_vivino_rating(raw_rating_string=rating)
+    vivino_reviews = clean_vivino_number_reviews(raw_review_string=reviews)
     return {
-        'vivino_rating': clean_vivino_rating(raw_rating_string=rating),
-        'vivino_reviews': clean_vivino_number_reviews(raw_review_string=reviews),
+        'vivino_rating': vivino_rating,
+        'vivino_reviews': vivino_reviews if vivino_rating is not None else None,
         "vivino_url": base_url + vivino_url.strip() if vivino_url else None
     }
 

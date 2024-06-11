@@ -15,5 +15,5 @@ class WineInfo(Base):
     lowest_price = Column(Float,  nullable=True)
     discount_percentage = Column(Float,  nullable=False)
     availability = Column(Integer,  nullable=True)
-
+# TODO add created at colum
     wine = relationship("Wine", back_populates="wine_info")

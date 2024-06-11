@@ -13,5 +13,6 @@ class Rating(Base):
     source = Column(String(128), nullable=False)
     score = Column(Float,  nullable=True)
     reviews = Column(Integer,  nullable=True)
+# TODO add created at colum
 
     wine = relationship("Wine", back_populates="rating")

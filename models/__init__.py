@@ -1,4 +1,4 @@
 from .award import Award
-from .vivino_info import VivinoInfo
+from .rating import Rating
 from .wine_info import WineInfo
 from .wine import Wine

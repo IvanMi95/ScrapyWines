@@ -50,7 +50,8 @@ def make_vivino_request(wine_name: Any) -> Any:
     return {
         'vivino_rating': vivino_rating,
         'vivino_reviews': vivino_reviews if vivino_rating is not None else None,
-        "vivino_url": base_url + vivino_url.strip() if vivino_url else None
+        "vivino_url": base_url + vivino_url.strip() if vivino_url else None,
+        "source": base_url
     }
 
 

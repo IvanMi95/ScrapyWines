@@ -72,4 +72,5 @@ class TannicoSpider(Spider):
         wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
         wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
         wine_item["vivino_url"] = vivino_data.get('vivino_url')
+        wine_item["rating_source"] = vivino_data.get('source')
         yield wine_item

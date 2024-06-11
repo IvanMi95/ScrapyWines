@@ -9,6 +9,7 @@ class Rating(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     wine_id = Column(Integer, ForeignKey('wine.id'), nullable=False)
+    # TODO Maybe remove foreign key
     source = Column(String(128), nullable=False)
     score = Column(Float,  nullable=True)
     reviews = Column(Integer,  nullable=True)

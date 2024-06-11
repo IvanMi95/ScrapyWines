@@ -24,3 +24,4 @@ class WineItem(scrapy.Item):
     vivino_rating = scrapy.Field()
     vivino_reviews = scrapy.Field()
     vivino_url = scrapy.Field()
+    rating_source = scrapy.Field()

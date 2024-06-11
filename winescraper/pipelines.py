@@ -8,8 +8,11 @@
 from typing import Any, Dict
 from itemadapter import ItemAdapter
 
+from models.award import Award
+from models.rating import Rating
+from models.wine import Wine
+from models.wine_info import WineInfo
 from project.database import get_session
-from project.wines.models import Award, Wine
 from util.print_util import custom_print, print_exception
 from winescraper.util.pipe_util import clean_string, get_wine_type
 from winescraper.util.tannico_util import convert_alcohol_percentage_to_float, convert_discount_percentage_tannico, convert_price_to_float_tannico, parse_availability
@@ -68,42 +71,53 @@ class WinescraperDataBasePipeline:
                     wine = Wine(
                         website=adapter["website"],
                         url=adapter["url"],
+                        vivino_url=adapter["vivino_url"],
                         name=adapter["name"],
+                        grape_variety=adapter["grape_variety"],
+                        appellation=adapter["appellation"],
+                        alcohol_content=adapter["alcohol_content"],
+                        serving_temperature=adapter["serving_temperature"],
+                        wine_type=adapter["wine_type"]
+                    )
+                    for award_data in adapter.get("awards", []):
+                        award = Award(critic=award_data["critic"], score=award_data["score"])
+                        wine.awards.append(award)
+
+                    session.add(wine)
+                    session.flush()
+
+                    wine_info = WineInfo(
+                        wine_id=wine.id,
+                        source=adapter["website"],
                         sale_price=adapter["sale_price"],
                         original_price=adapter["original_price"],
                         lowest_price=adapter["lowest_price"],
                         discount_percentage=adapter["discount_percentage"],
                         availability=adapter["availability"],
-                        grape_variety=adapter["grape_variety"],
-                        appellation=adapter["appellation"],
-                        alcohol_content=adapter["alcohol_content"],
-                        serving_temperature=adapter["serving_temperature"],
-                        wine_type=adapter["wine_type"],
-                        vivino_rating=adapter["vivino_rating"],
-                        vivino_reviews=adapter["vivino_reviews"],
-                        vivino_url=adapter["vivino_url"]
                     )
-                    for award_data in adapter.get("awards", []):
-                        award = Award(critic=award_data["critic"], score=award_data["score"])
-                        wine.awards.append(award)
-                    session.add(wine)
+                    session.add(wine_info)
+                    rating = Rating(
+                        wine_id=wine.id,
+                        source=adapter["rating_source"],
+                        score=adapter["vivino_rating"],
+                        reviews=adapter["vivino_reviews"]
+                    )
+                    session.add(rating)
                 else:
-                    wine.sale_price = adapter["sale_price"]
-                    wine.original_price = adapter["original_price"]
-                    wine.lowest_price = adapter["lowest_price"]
-                    wine.discount_percentage = adapter["discount_percentage"]
-                    wine.availability = adapter["availability"]
-                    wine.appellation = adapter["appellation"]
-                    wine.grape_variety = adapter["grape_variety"]
-                    wine.alcohol_content = adapter["alcohol_content"]
-                    wine.serving_temperature = adapter["serving_temperature"]
-                    wine.vivino_rating = adapter["vivino_rating"]
-                    wine.vivino_reviews = adapter["vivino_reviews"]
+                    if wine.alcohol_content is None:
+                        wine.alcohol_content = adapter["alcohol_content"]
+                    if wine.appellation is None:
+                        wine.appellation = adapter["appellation"]
+                    if wine.grape_variety is None:
+                        wine.grape_variety = adapter["grape_variety"]
+                    if wine.serving_temperature is None:
+                        wine.serving_temperature = adapter["serving_temperature"]
+
                     for award_data in adapter.get("awards", []):
                         award = session.query(Award).filter(
                             Award.critic == award_data["critic"],
                             Award.wine_id == wine.id
-                        ).first()
+                        ).order_by(Award.id.desc()).first()
                         if not award:
                             award = Award(
                                 wine_id=wine.id,
@@ -111,8 +125,67 @@ class WinescraperDataBasePipeline:
                                 score=award_data["score"]
                             )
                             session.add(award)
-                        else:
-                            award.score = award_data["score"]
+                        elif award_data["score"] != award.score:
+                            award = Award(
+                                wine_id=wine.id,
+                                critic=award_data["critic"],
+                                score=award_data["score"]
+                            )
+                            session.add(award)
+                    wine_info = session.query(WineInfo).filter(
+                        WineInfo.source == adapter["website"],
+                        WineInfo.wine_id == wine.id
+                    ).order_by(WineInfo.id.desc()).first()
+                    if not wine_info:
+                        wine_info = WineInfo(
+                            wine_id=wine.id,
+                            source=adapter["website"],
+                            sale_price=adapter["sale_price"],
+                            original_price=adapter["original_price"],
+                            lowest_price=adapter["lowest_price"],
+                            discount_percentage=adapter["discount_percentage"],
+                            availability=adapter["availability"],
+                        )
+                        session.add(wine_info)
+                    elif (
+                        wine_info.availability != adapter["availability"] or
+                        wine_info.sale_price != adapter["sale_price"] or
+                        wine_info.discount_percentage != adapter["discount_percentage"]
+                    ):
+                        wine_info = WineInfo(
+                            wine_id=wine.id,
+                            source=adapter["website"],
+                            sale_price=adapter["sale_price"],
+                            original_price=adapter["original_price"],
+                            lowest_price=adapter["lowest_price"],
+                            discount_percentage=adapter["discount_percentage"],
+                            availability=adapter["availability"],
+                        )
+                        session.add(wine_info)
+                    rating = session.query(Rating).filter(
+                        Rating.source == adapter["rating_source"],
+                        Rating.wine_id == wine.id
+                    ).order_by(Rating.id.desc()).first()
+                    if not rating:
+                        rating = Rating(
+                            wine_id=wine.id,
+                            source=adapter["rating_source"],
+                            score=adapter["vivino_rating"],
+                            reviews=adapter["vivino_reviews"]
+                        )
+                        session.add(rating)
+                    elif (
+                        rating.score != adapter["score"] or
+                        rating.reviews != adapter["reviews"]
+                    ):
+                        rating = Rating(
+                            wine_id=wine.id,
+                            source=adapter["rating_source"],
+                            score=adapter["vivino_rating"],
+                            reviews=adapter["vivino_reviews"]
+                        )
+                        session.add(rating)
+
                 session.commit()
             except Exception as exc:
                 session.rollback()

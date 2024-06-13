@@ -3,6 +3,7 @@ from scrapy import Request, Spider
 from scrapy.http import Response
 from scrapy.selector.unified import Selector, SelectorList
 
+from winescraper.custom_settings.custom_settings import get_tannico_settings, get_tannico_settings_without_vivino
 from winescraper.items import WineItem
 from winescraper.util.vivino_util import construct_vivino_query, make_vivino_request
 # scrapy crawl tannicospider
@@ -19,7 +20,15 @@ class TannicoSpider(Spider):
     name = "tannicospider"
     allowed_domains = ["www.tannico.it", "www.vivino.com"]
     # start_urls = ["https://www.tannico.it/vini/vini-bianchi-in-offerta.html"]
-    start_urls = ["https://www.tannico.it/vini/vini-rossi-in-offerta.html"]
+    start_urls = [
+        "https://www.tannico.it/vini/vini-rossi-in-offerta.html",
+        "https://www.tannico.it/vini/vini-bianchi-in-offerta.html"
+    ]
+    custom_settings = get_tannico_settings_without_vivino()
+    # @classmethod
+    # def update_settings(cls, settings):
+    #     super().update_settings(settings)
+    #     settings.set("SOME_SETTING", "some value", priority="spider")
 
     def parse(self, response: Response):
         wines: SelectorList = response.css('article.productItem.productItem--standard')
@@ -67,10 +76,10 @@ class TannicoSpider(Spider):
         wine_item["wine_type"] = response.xpath(
             '//ul[@id="product-attribute-specs-table"]//strong[text()="Tipologia: "]/following-sibling::text()').get()
 
-        vivino_data = make_vivino_request(wine_item["name"])
+        # vivino_data = make_vivino_request(wine_item["name"])
 
-        wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
-        wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
-        wine_item["vivino_url"] = vivino_data.get('vivino_url')
-        wine_item["rating_source"] = vivino_data.get('source')
+        # wine_item["vivino_rating"] = vivino_data.get('vivino_rating')
+        # wine_item["vivino_reviews"] = vivino_data.get('vivino_reviews')
+        # wine_item["vivino_url"] = vivino_data.get('vivino_url')
+        # wine_item["rating_source"] = vivino_data.get('source')
         yield wine_item

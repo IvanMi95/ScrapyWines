@@ -4,6 +4,7 @@ from scrapy.crawler import CrawlerProcess
 
 from project.celery_utils import create_celery
 from project.wines import wine_router
+from winescraper.custom_settings.custom_settings import get_tannico_settings, get_tannico_settings_without_vivino
 from winescraper.spiders.tannicospider import TannicoSpider
 
 
@@ -29,26 +30,8 @@ def create_app() -> FastAPI:
         return {"message": "Crawling finished"}
 
     def run_crawler():
-        process = CrawlerProcess(
-            settings={
-                "FEEDS": {
-                    "winedata.json": {"format": "json", "overwrite": True}
-                },
-                "ITEM_PIPELINES": {
-                    "winescraper.pipelines.WinescraperPipeline": 300,
-                    "winescraper.pipelines.WinescraperDataBasePipeline": 400
-                },
-                "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
-                "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
-                "FEED_EXPORT_ENCODING": "utf-8",
-                "ROBOTSTXT_OBEY": False,
-                "AUTOTHROTTLE_ENABLED": True,
-                "AUTOTHROTTLE_START_DELAY": 5,
-                "AUTOTHROTTLE_MAX_DELAY": 60,
-                "AUTOTHROTTLE_TARGET_CONCURRENCY": 1.0
-
-            }
-        )
+        process = CrawlerProcess(get_tannico_settings())
+        # process = CrawlerProcess(get_tannico_settings_without_vivino())
         process.crawl(TannicoSpider)
         # the script will block here until the crawling is finished
         # process.start(stop_after_crawl=True)

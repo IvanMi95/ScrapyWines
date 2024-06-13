@@ -4,7 +4,7 @@ from scrapy.crawler import CrawlerProcess
 
 from project.celery_utils import create_celery
 from project.wines import wine_router
-from winescraper.custom_settings.custom_settings import get_tannico_settings, get_tannico_settings_without_vivino
+from winescraper.config.settings_config import get_tannico_settings, get_tannico_settings_without_vivino
 from winescraper.spiders.tannicospider import TannicoSpider
 
 

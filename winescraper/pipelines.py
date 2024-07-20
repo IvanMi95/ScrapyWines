@@ -19,7 +19,7 @@ from winescraper.util.tannico_util import convert_alcohol_percentage_to_float, c
 PRICES = ["sale_price", "original_price", "lowest_price"]
 
 
-class WinescraperPipeline:
+class TannicoPipeline:
     def process_item(self, item: Dict[str, Any], spider):
         adapter = ItemAdapter(item)
 
@@ -56,7 +56,8 @@ class WinescraperPipeline:
             )
         if "wine_type" in adapter:
             adapter["wine_type"] = get_wine_type(
-                raw_type=adapter["wine_type"]
+                raw_type=adapter["wine_type"],
+                url=adapter["url"]
             )
         return item
 
@@ -64,6 +65,7 @@ class WinescraperPipeline:
 class WinescraperDataBasePipeline:
     def process_item(self, item: Dict[str, Any], spider):
         adapter = ItemAdapter(item)
+        # TODO if price  noneskip price saving
         with get_session() as session:
             try:
                 wine = session.query(Wine).filter(Wine.url == adapter["url"]).first()

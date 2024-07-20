@@ -37,8 +37,10 @@ def make_vivino_request(wine_name: Any) -> Any:
         'Upgrade-Insecure-Requests': '1',
         'Cookie': 'insert your cookie data here'
     }
+    # TODO add string matching functionality
 
     response = requests.get(search_url, headers=headers, params=params)
+    # TODO add timeout
     sel = Selector(text=response.text)
     rating = sel.xpath("//div[contains(@class, 'average__number')]/text()").get()
     reviews = sel.xpath(

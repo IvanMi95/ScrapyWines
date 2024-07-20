@@ -5,7 +5,7 @@ def get_tannico_settings():
             "tannico_data.json": {"format": "json", "indent": 4, "overwrite": True}
         },
         "ITEM_PIPELINES": {
-            "winescraper.pipelines.WinescraperPipeline": 300,
+            "winescraper.pipelines.TannicoPipeline": 300,
             "winescraper.pipelines.WinescraperDataBasePipeline": 400
         },
         "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
@@ -23,10 +23,11 @@ def get_tannico_settings():
 def get_tannico_settings_without_vivino():
     return {
         "FEEDS": {
-            "tannico_data_without_vivino.json": {"format": "json",  "indent": 4, "overwrite": True}
+            # "tannico_data_without_vivino.json": {"format": "json",  "indent": 4, "overwrite": True}
+            "tannico_data_without_vivino.json": {"format": "json",  "overwrite": True}
         },
         "ITEM_PIPELINES": {
-            "winescraper.pipelines.WinescraperPipeline": 300
+            "winescraper.pipelines.TannicoPipeline": 300
         },
         "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
         "FEED_EXPORT_ENCODING": "utf-8",
@@ -35,5 +36,35 @@ def get_tannico_settings_without_vivino():
             "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
             "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
         },
-        "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+        "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
+        "HTTPCACHE_ENABLED": False
+
+        # "PLAYWRIGHT_LAUNCH_OPTIONS": {
+        #     "headless": False,
+        # }
+    }
+
+
+def get_callmewine_settings_without_vivino():
+    return {
+        "FEEDS": {
+            # "tannico_data_without_vivino.json": {"format": "json",  "indent": 4, "overwrite": True}
+            "callmewine_data_without_vivino.json": {"format": "json",  "overwrite": True}
+        },
+        "ITEM_PIPELINES": {
+            "winescraper.pipelines.TannicoPipeline": 300
+        },
+        "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
+        "FEED_EXPORT_ENCODING": "utf-8",
+        "ROBOTSTXT_OBEY": False,
+        "DOWNLOAD_HANDLERS": {
+            "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+            "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+        },
+        "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
+        "HTTPCACHE_ENABLED": False
+
+        # "PLAYWRIGHT_LAUNCH_OPTIONS": {
+        #     "headless": False,
+        # }
     }

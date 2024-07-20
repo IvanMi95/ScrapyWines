@@ -2,8 +2,9 @@ from typing import List
 from scrapy import Request, Spider
 from scrapy.http import Response
 from scrapy.selector.unified import Selector, SelectorList
+from scrapy_playwright.page import PageMethod
 
-from winescraper.custom_settings.custom_settings import get_tannico_settings, get_tannico_settings_without_vivino
+from winescraper.config.settings_config import get_tannico_settings, get_tannico_settings_without_vivino
 from winescraper.items import WineItem
 from winescraper.util.vivino_util import construct_vivino_query, make_vivino_request
 # scrapy crawl tannicospider
@@ -20,18 +21,109 @@ class TannicoSpider(Spider):
     name = "tannicospider"
     allowed_domains = ["www.tannico.it", "www.vivino.com"]
     # start_urls = ["https://www.tannico.it/vini/vini-bianchi-in-offerta.html"]
-    start_urls = [
-        "https://www.tannico.it/vini/vini-rossi-in-offerta.html",
-        "https://www.tannico.it/vini/vini-bianchi-in-offerta.html"
-    ]
+    # start_urls = [
+    #     "https://www.tannico.it/vini/vini-rossi-in-offerta.html",
+    #     "https://www.tannico.it/vini/vini-bianchi-in-offerta.html"
+    # ]
     custom_settings = get_tannico_settings_without_vivino()
     # @classmethod
     # def update_settings(cls, settings):
     #     super().update_settings(settings)
     #     settings.set("SOME_SETTING", "some value", priority="spider")
 
-    def parse(self, response: Response):
-        wines: SelectorList = response.css('article.productItem.productItem--standard')
+    # def start_requests(self):
+
+    #     url = "https://www.tannico.it/tutte-le-promo.html"
+    #     yield Request(
+    #         url=url,
+    #         meta=dict(
+    #             playwright=True,
+    #             playwright_include_page=True,
+    #             # playwright_page_methods=[
+    #             #     PageMethod('wait_for_selector', '#find_more_btn'),
+    #             #     PageMethod("evaluate", self.click_find_more_btn),
+    #             # ],
+    #             errback=self.errback
+    #         )
+    #         # meta={
+    #         #     "playwright": True,
+    #         #     "playwright_include_page": True,
+    #         #     "playwright_page_methods": [
+    #         #         PageMethod('wait_for_selector', '#find_more_btn'),
+    #         #         PageMethod("evaluate", self.click_find_more_btn),
+    #         #     ],
+    #         #     "errback": self.errback
+    #         # }
+    #     )
+
+    def start_requests(self):
+        # click_find_more_btn = """
+        # async function clickUntilConditionMet() {
+        #     function checkCondition() {
+        #         const text = document.querySelector('.find_more_count').innerText;
+        #         const numbers = text.match(/\\d+/g).map(Number);
+        #         if (numbers.length === 2) {
+        #             const difference = Math.abs(numbers[0] - numbers[1]);
+        #             return difference < 21;
+        #         }
+        #         return false;
+        #     }
+
+        #     while (!checkCondition()) {
+        #         const button = document.querySelector('#find_more_btn');
+        #         if (button && getComputedStyle(button).display !== 'none') {
+        #             button.click();
+        #             await new Promise(r => setTimeout(r, 1000)); // Wait for 1 second
+        #         } else {
+        #             break; // Stop if button is not found or not visible
+        #         }
+        #     }
+        # }
+
+        # clickUntilConditionMet();
+        # """
+
+        url = "https://www.tannico.it/tutte-le-promo.html"
+
+        yield Request(
+            url=url,
+            meta=dict(
+                playwright=True,
+                playwright_include_page=True,
+                # playwright_page_methods=[
+                #     PageMethod('wait_for_selector', '#find_more_btn'),
+                #     # PageMethod("evaluate", click_find_more_btn),
+                # ],
+                callback=self.parse,
+                errback=self.errback
+            )
+        )
+
+    async def errback(self, failure):
+        page = failure.request.meta["playwright_page"]
+        await page.close()
+
+    # async def parse(self, response: Response):
+
+    #     page = response.meta["playwright_page"]
+    #     await page.close()
+    async def parse(self, response: Response):
+        page = response.meta["playwright_page"]
+        page.set_default_timeout(1000)
+
+        try:
+            while button := page.locator("//div[@id='find_more_btn']/p[@class='btn-text' and text()='Mostra di più']"):
+                if not await button.count():
+                    break
+                await button.scroll_into_view_if_needed()
+                await button.click()
+
+        except:
+            pass
+
+        content = await page.content()
+        sel = Selector(text=content)
+        wines: SelectorList = sel.css('article.productItem.productItem--standard')
 
         for wine in wines:
             wine_page_url = wine.css("div.productItem__info a::attr(href)").get()

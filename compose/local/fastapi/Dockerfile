@@ -8,6 +8,8 @@ RUN apt-get update \
   && apt-get install -y build-essential \
   # psycopg2 dependencies
   && apt-get install -y libpq-dev \
+  #playwrigth dependencies
+  && apt-get install -y libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev \
   # Additional dependencies
   && apt-get install -y telnet netcat \
   # cleaning up unused files
@@ -18,6 +20,7 @@ RUN apt-get update \
 COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 RUN  playwright install
+RUN  playwright install-deps
 
 COPY ./compose/local/fastapi/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint

@@ -52,7 +52,7 @@ def get_callmewine_settings_without_vivino():
             "callmewine_data_without_vivino.json": {"format": "json",  "overwrite": True}
         },
         "ITEM_PIPELINES": {
-            "winescraper.pipelines.TannicoPipeline": 300
+            "winescraper.pipelines.CallMeWinePipeline": 300
         },
         "REQUEST_FINGERPRINTER_IMPLEMENTATION": "2.7",
         "FEED_EXPORT_ENCODING": "utf-8",

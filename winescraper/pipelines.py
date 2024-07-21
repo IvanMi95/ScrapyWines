@@ -62,10 +62,53 @@ class TannicoPipeline:
         return item
 
 
+class CallMeWinePipeline:
+    def process_item(self, item: Dict[str, Any], spider):
+        adapter = ItemAdapter(item)
+
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            if field_name != 'awards':
+                adapter[field_name] = clean_string(value=adapter.get(field_name))
+            else:
+                adapter[field_name] = [
+                    {
+                        "critic": clean_string(value=award_data["critic"]),
+                        "score": clean_string(value=award_data["score"])
+
+                    }
+                    for award_data in adapter.get("awards", [])
+                ]
+
+        # for price in PRICES:
+        #     if price in adapter:
+        #         adapter[price] = convert_price_to_float_tannico(price_string=adapter[price])
+
+        # if "discount_percentage" in adapter:
+        #     adapter["discount_percentage"] = convert_discount_percentage_tannico(
+        #         original_price=adapter["original_price"],
+        #         sale_price=adapter["sale_price"]
+        #     )
+        # if "alcohol_content" in adapter:
+        #     adapter["alcohol_content"] = convert_alcohol_percentage_to_float(
+        #         percentage_string=adapter["alcohol_content"]
+        #     )
+        # if "availability" in adapter:
+        #     adapter["availability"] = parse_availability(
+        #         availability=adapter["availability"]
+        #     )
+        # if "wine_type" in adapter:
+        #     adapter["wine_type"] = get_wine_type(
+        #         raw_type=adapter["wine_type"],
+        #         url=adapter["url"]
+        #     )
+        return item
+
+
 class WinescraperDataBasePipeline:
     def process_item(self, item: Dict[str, Any], spider):
         adapter = ItemAdapter(item)
-        # TODO if price  noneskip price saving
+        # TODO if price  none skip price saving
         with get_session() as session:
             try:
                 wine = session.query(Wine).filter(Wine.url == adapter["url"]).first()

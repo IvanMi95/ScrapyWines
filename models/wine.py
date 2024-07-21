@@ -18,6 +18,8 @@ class Wine(Base):
     alcohol_content = Column(Float, nullable=True)
     serving_temperature = Column(String(128), nullable=True)
     wine_type = Column(String(128), nullable=False)
+    # TODO make array column
+    # TODO add year
 
     awards = relationship("Award", back_populates="wine")
     wine_info = relationship("WineInfo", back_populates="wine")

@@ -4,6 +4,7 @@ from scrapy.http import Response
 from scrapy.selector.unified import Selector, SelectorList
 from scrapy_playwright.page import PageMethod
 
+from util.print_util import custom_print
 from winescraper.config.settings_config import get_callmewine_settings_without_vivino, get_tannico_settings, get_tannico_settings_without_vivino
 from winescraper.items import WineItem
 from winescraper.util.vivino_util import construct_vivino_query, make_vivino_request
@@ -14,8 +15,8 @@ class CallMeWineSpider(Spider):
     name = "callmewinespider"
     allowed_domains = ["www.callmewine.com"]
     start_urls = ["https://www.callmewine.com/pages/vini-in-offerta"]
+    # start_urls = ["https://www.callmewine.com/pages/vini-in-offerta?selection=vini-in-offerta&page=7"]
     custom_settings = get_callmewine_settings_without_vivino()
-# response.xpath('//div[@class="c-productBox__image relative"]/a/@href').get()
 
     def parse(self, response):
         product_links = response.xpath(
@@ -30,12 +31,16 @@ class CallMeWineSpider(Spider):
                     "website": "www.callmewine.com"
                 }
             )
+        next_page = response.css('a[aria-label="Pagina successiva"]::attr(href)').get()
+        if next_page is not None:
+            next_page_url = "https://www.callmewine.com" + next_page
+            yield response.follow(next_page_url, callback=self.parse)
 
     def parse_wine(self, response: Response):
 
         wine_item = WineItem()
-        wine_item["original_price"] = response.xpath(
-            '//div[@data-v-742ea495]//div[@data-v-742ea495]//span[contains(@class, "line-through") and contains(@class, "text-gray-dark") and contains(@class, "text-sm")]/text()').get()
+        # wine_item["original_price"] = response.xpath(
+        #     '//div[@data-v-742ea495]//div[@data-v-742ea495]//span[contains(@class, "line-through") and contains(@class, "text-gray-dark") and contains(@class, "text-sm")]/text()').get()
         wine_item["name"] = response.xpath(
             '//h1[@class="h2 text-secondary <md:pt-8"]/text()').get()
         wine_item["url"] = response.meta['website'] + response.meta['wine_page_url']
@@ -57,7 +62,9 @@ class CallMeWineSpider(Spider):
         #     } for award in awards
         # ]
         # TODO add playwright click
-        wine_item["availability"] = None
+        wine_item["availability"] = response.css('p.text-primary-400 ::text').get()
+        # wine_item["availability"] = response.xpath(
+        #     '/html/body/div/div/div/div[3]/div/div/div[1]/div[2]/p').get()
 
         wine_item["appellation"] = response.xpath(
             '//h3[contains(text(), "Denominazione")]/following-sibling::div/text()').get()
@@ -78,7 +85,3 @@ class CallMeWineSpider(Spider):
         # # wine_item["vivino_url"] = vivino_data.get('vivino_url')
         # # wine_item["rating_source"] = vivino_data.get('source')
         yield wine_item
-#         wines: SelectorList = response.css('article.productItem.productItem--standard')
-#         for wine in wines:
-#             wine_page_url = wine.css("div.productItem__info a::attr(href)").get()
-# # response.xpath('//div[@class="c-productBox__image relative"]/a/@href').get()

@@ -30,8 +30,8 @@ def create_app() -> FastAPI:
         return {"message": "Crawling finished"}
 
     def run_crawler():
-        process = CrawlerProcess(get_tannico_settings())
-        # process = CrawlerProcess(get_tannico_settings_without_vivino())
+        # process = CrawlerProcess(get_tannico_settings())
+        process = CrawlerProcess(get_tannico_settings_without_vivino())
         process.crawl(TannicoSpider)
         # the script will block here until the crawling is finished
         # process.start(stop_after_crawl=True)

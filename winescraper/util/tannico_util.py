@@ -1,9 +1,9 @@
 from typing import Any, Optional
 
 
-def convert_price_to_float_tannico(price_string: str) -> Optional[float]:
+def convert_price_to_float_tannico(price_string: Any) -> Optional[float]:
     if not isinstance(price_string, str):
-        return price_string
+        return None
     price_string = price_string.replace(",", ".").replace("€", "")
     return float(price_string)
 

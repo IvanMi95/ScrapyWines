@@ -2,6 +2,8 @@ from typing import Any, Optional
 import requests
 from winescraper.util.pipe_util import clean_string
 from scrapy.selector import Selector
+from random import randint
+from time import sleep
 
 
 def construct_vivino_query(wine_name: str) -> str:
@@ -17,6 +19,7 @@ def construct_vivino_query(wine_name: str) -> str:
 def make_vivino_request(wine_name: Any) -> Any:
     if not isinstance(wine_name, str):
         raise ValueError("Name is not a string")
+    sleep(randint(1, 10))
     wine_name = clean_string(value=wine_name)
     base_url = "https://www.vivino.com"
     search_url = "https://www.vivino.com/search/wines"

@@ -1,0 +1,152 @@
+wine type -> vini frizzanti 
+  www.callmewine.com/rosato-rifermentato-in-bottiglia-scighera-fiorano-P35656.htm 
+wine type -> vini dolci 
+  www.callmewine.com/primitivo-dolce-naturale-madrigale-produttori-di-manduria-2021-P51455.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/ortrugo-frizzante-bulli-2022-P48061.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-asti-galeisa-caudrina-2023-P53585.htm 
+wine type -> grappa 
+  www.callmewine.com/grappa-barolo-sibona-2010-P52860.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-asti-maddalena-adriano-2023-P55287.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/bonarda-campo-del-monte-agnes-2022-P52006.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/prosecco-anfora-magnum-casa-belfi-P6956.htm 
+wine type -> grappa 
+  www.callmewine.com/grappa-41-nonino-P15045.htm 
+wine type -> calvados 
+  www.callmewine.com/calvados-lecompte-5-anni-P6549.htm 
+wine type -> vodka 
+  www.callmewine.com/vodka-belvedere-100cl-P6510.htm 
+wine type -> rum 
+  www.callmewine.com/rum-abuelo-12-anni-confezione-P8805.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/rosso-frizzante-iena-franchina-e-giarone-P51829.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pet-nat-rouge-waz-k-clos-troteligotte-2022-P53099.htm 
+wine type -> whisky 
+  www.callmewine.com/whisky-laphroaig-quarter-cask-P6233.htm 
+wine type -> sake secco 
+  www.callmewine.com/sake-junmai-kairyo-aratama-tokubetsu-wada-sake-P34777.htm 
+wine type -> sake dolce 
+  www.callmewine.com/sake-yuzu-shu-tsuji-honten-P52666.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-plata-clase-azul-P45089.htm 
+wine type -> whisky 
+  www.callmewine.com/bourbon-rye-bulleit-P6580.htm 
+wine type -> vini dolci 
+  www.callmewine.com/sauternes-chateau-guiraud-375-ml-2015-P14402.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-primitivo-doppio-passo-P12658.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-barbera-frizzante-la-monella-braida-P50547.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-kik%C3%A8-cantine-fina-P50305.htm 
+wine type -> kit callmewine 
+  www.callmewine.com/kit-brut-ca-de-pazzi-1bt-P51271.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-greco-tufo-riserva-cutizzi-feudi-san-gregorio-P48896.htm 
+wine type -> altri kit 
+  www.callmewine.com/kit-margarita-tequila-patron-P50676.htm 
+wine type -> vini speziati 
+  www.callmewine.com/vermouth-di-torino-rosso-superiore-romano-levi-P23640.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-silver-especial-jose-cuervo-P49120.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-blanco-casa-dragones-P45090.htm 
+wine type -> vini dolci 
+  www.callmewine.com/gewurztraminer-reserve-willm-2021-P49652.htm 
+wine type -> vini speziati 
+  www.callmewine.com/vermouth-bianco-controcorrente-P39824.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-rosa-pasithea-rosa-girlan-2022-P54439.htm 
+wine type -> whisky 
+  www.callmewine.com/whisky-akashi-meisei-white-oak-P6642.htm 
+wine type -> kombucha 
+  www.callmewine.com/kombucha-foglie-di-fico-aka-P54664.htm 
+wine type -> rum 
+  www.callmewine.com/rum-millonario-15-anni-P6158.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pet-nat-la-spettinata-la-cattiva-P49237.htm 
+wine type -> rum 
+  www.callmewine.com/rum-spiced-original-captain-morgan-P11466.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pignoletto-frizzante-sui-lieviti-vigneto-san-vito-2022-P54350.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/rosato-rifermentato-in-bottiglia-scighera-fiorano-P35656.htm 
+wine type -> vini dolci 
+  www.callmewine.com/primitivo-dolce-naturale-madrigale-produttori-di-manduria-2021-P51455.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-asti-galeisa-caudrina-2023-P53585.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/ortrugo-frizzante-bulli-2022-P48061.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/prosecco-anfora-magnum-casa-belfi-P6956.htm 
+wine type -> grappa 
+  www.callmewine.com/grappa-barolo-sibona-2010-P52860.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-asti-maddalena-adriano-2023-P55287.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/bonarda-campo-del-monte-agnes-2022-P52006.htm 
+wine type -> vodka 
+  www.callmewine.com/vodka-belvedere-100cl-P6510.htm 
+wine type -> calvados 
+  www.callmewine.com/calvados-lecompte-5-anni-P6549.htm 
+wine type -> rum 
+  www.callmewine.com/rum-abuelo-12-anni-confezione-P8805.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/rosso-frizzante-iena-franchina-e-giarone-P51829.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pet-nat-rouge-waz-k-clos-troteligotte-2022-P53099.htm 
+wine type -> sake dolce 
+  www.callmewine.com/sake-yuzu-shu-tsuji-honten-P52666.htm 
+wine type -> whisky 
+  www.callmewine.com/whisky-akashi-meisei-white-oak-P6642.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-plata-clase-azul-P45089.htm 
+wine type -> vini dolci 
+  www.callmewine.com/sauternes-chateau-guiraud-375-ml-2015-P14402.htm 
+wine type -> whisky 
+  www.callmewine.com/bourbon-rye-bulleit-P6580.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-kik%C3%A8-cantine-fina-P50305.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-primitivo-doppio-passo-P12658.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-barbera-frizzante-la-monella-braida-P50547.htm 
+wine type -> wine box della cantina 
+  www.callmewine.com/wine-box-greco-tufo-riserva-cutizzi-feudi-san-gregorio-P48896.htm 
+wine type -> kit callmewine 
+  www.callmewine.com/kit-brut-ca-de-pazzi-1bt-P51271.htm 
+wine type -> altri kit 
+  www.callmewine.com/kit-margarita-tequila-patron-P50676.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-blanco-casa-dragones-P45090.htm 
+wine type -> vini dolci 
+  www.callmewine.com/gewurztraminer-reserve-willm-2021-P49652.htm 
+wine type -> tequila 
+  www.callmewine.com/tequila-silver-especial-jose-cuervo-P49120.htm 
+wine type -> vini speziati 
+  www.callmewine.com/vermouth-di-torino-rosso-superiore-romano-levi-P23640.htm 
+wine type -> vini speziati 
+  www.callmewine.com/vermouth-bianco-controcorrente-P39824.htm 
+wine type -> vini dolci 
+  www.callmewine.com/moscato-rosa-pasithea-rosa-girlan-2022-P54439.htm 
+wine type -> kombucha 
+  www.callmewine.com/kombucha-foglie-di-fico-aka-P54664.htm 
+wine type -> whisky 
+  www.callmewine.com/whisky-laphroaig-quarter-cask-P6233.htm 
+wine type -> sake secco 
+  www.callmewine.com/sake-junmai-kairyo-aratama-tokubetsu-wada-sake-P34777.htm 
+wine type -> rum 
+  www.callmewine.com/rum-millonario-15-anni-P6158.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pet-nat-la-spettinata-la-cattiva-P49237.htm 
+wine type -> rum 
+  www.callmewine.com/rum-spiced-original-captain-morgan-P11466.htm 
+wine type -> grappa 
+  www.callmewine.com/grappa-41-nonino-P15045.htm 
+wine type -> vini frizzanti 
+  www.callmewine.com/pignoletto-frizzante-sui-lieviti-vigneto-san-vito-2022-P54350.htm 

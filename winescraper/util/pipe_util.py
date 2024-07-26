@@ -1,11 +1,13 @@
 import re
 from typing import Any, Optional
-WHITE = ["bianco", "white"]
-RED = ["rosso", "red"]
+WHITE = ["bianco", "white", "vini bianchi"]
+RED = ["rosso", "red", "vini rossi"]
 CHAMPAGNE = ["champagne"]
-SPARKLING = ["sparkling wine", "spumante"]
+SPARKLING = ["sparkling wine", "spumante", "spumanti"]
 DESSERT = ["dolce", "dessert"]
-ROSE = ["rosé", "rose"]
+ROSE = ["rosé", "rose", "vini rosati"]
+FORTIFIED = ["vini liquorosi", "fortified wine"]
+INVALID = ["gin", "liquori e altri distillati"]
 
 
 def remove_quotes(string: str) -> str:
@@ -21,6 +23,7 @@ def remove_quotes(string: str) -> str:
         '›': '',
         '«': '',
         '»': '',
+        '\u00a0': '',
         "\n": ""
     })
     return string.translate(translation_table)
@@ -56,6 +59,11 @@ def get_wine_type(raw_type: str, url: str = "") -> str:
             return "dessert"
         if wine_type in ROSE:
             return "rose"
+        if wine_type in FORTIFIED:
+            return "fortified"
+        if wine_type in INVALID:
+            return None
+        # TODO add in saving pipeline check if wine type is none
         with open("error_log.txt", 'a') as file:
             file.write(f"wine type -> {wine_type} \n  {url} \n")
         return "Error parsing type"
